@@ -1,0 +1,14 @@
+# Target labels
+ learnopengl_glad-populate
+# Source files and their labels
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate.rule
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate-complete.rule
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-build.rule
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-configure.rule
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-download.rule
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-install.rule
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-mkdir.rule
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-patch.rule
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-test.rule
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-update.rule

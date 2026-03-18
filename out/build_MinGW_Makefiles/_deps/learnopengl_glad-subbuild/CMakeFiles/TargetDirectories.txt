@@ -1,0 +1,3 @@
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/CMakeFiles/rebuild_cache.dir

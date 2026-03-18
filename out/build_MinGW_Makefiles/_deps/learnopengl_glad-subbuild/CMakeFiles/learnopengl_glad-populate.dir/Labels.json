@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate.rule"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"learnopengl_glad-populate"
+		],
+		"name" : "learnopengl_glad-populate"
+	}
+}

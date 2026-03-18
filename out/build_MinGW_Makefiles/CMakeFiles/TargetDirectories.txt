@@ -1,0 +1,10 @@
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/CMakeFiles/glad.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/CMakeFiles/coin_runner.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/CMakeFiles/edit_cache.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/CMakeFiles/rebuild_cache.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/glfw-build/CMakeFiles/edit_cache.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/glfw-build/CMakeFiles/rebuild_cache.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/glfw-build/src/CMakeFiles/rebuild_cache.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/glfw-build/src/CMakeFiles/glfw.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/glfw-build/src/CMakeFiles/update_mappings.dir
+C:/Users/ACER/Downloads/3dgame/out/build_MinGW_Makefiles/_deps/glfw-build/src/CMakeFiles/edit_cache.dir
