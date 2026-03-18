@@ -1,0 +1,14 @@
+# Target labels
+ learnopengl_glad-populate
+# Source files and their labels
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate-complete.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-build.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-configure.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-download.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-install.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-mkdir.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-patch.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-test.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-update.rule

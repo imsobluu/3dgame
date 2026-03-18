@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/a/Downloads/3dgame/build-mac/cmake_install.cmake",
+		"/Users/a/Downloads/3dgame/build-mac/_deps/glfw-build/cmake_install.cmake",
+		"/Users/a/Downloads/3dgame/build-mac/_deps/glfw-build/src/cmake_install.cmake",
+		"/Users/a/Downloads/3dgame/build-mac/_deps/assimp-build/cmake_install.cmake",
+		"/Users/a/Downloads/3dgame/build-mac/_deps/assimp-build/code/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

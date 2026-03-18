@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate.rule"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/CMakeFiles/learnopengl_glad-populate-complete.rule"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-build.rule"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-configure.rule"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-download.rule"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-install.rule"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-mkdir.rule"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-patch.rule"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-test.rule"
+		},
+		{
+			"file" : "/Users/a/Downloads/3dgame/build-mac/_deps/learnopengl_glad-subbuild/learnopengl_glad-populate-prefix/src/learnopengl_glad-populate-stamp/learnopengl_glad-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"learnopengl_glad-populate"
+		],
+		"name" : "learnopengl_glad-populate"
+	}
+}

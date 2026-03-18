@@ -1,0 +1,3 @@
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/CMakeFiles/assimp-populate.dir
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/CMakeFiles/edit_cache.dir
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/CMakeFiles/rebuild_cache.dir

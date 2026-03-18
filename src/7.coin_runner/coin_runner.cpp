@@ -4,12 +4,15 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <learnopengl/model.h>
 #include <learnopengl/shader_m.h>
 
 #include <algorithm>
 #include <cmath>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 #include <random>
 #include <sstream>
 #include <string>
@@ -56,6 +59,8 @@ const int OBSTACLE_POOL_SIZE = 36;
 // Global timing
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
+float travelDistance = 0.0f;
+float rollAngle = 0.0f;
 
 // Input edge detection
 bool laneLeftLatch = false;
@@ -71,6 +76,62 @@ void processInput(GLFWwindow *window, GameState &gameState, int &targetLane, flo
 glm::vec3 localToWorld(float localX, float localZ, float y);
 void initCube();
 void renderCube();
+unsigned int createSolidTexture(const glm::vec3 &color);
+
+bool fileExists(const std::string &path)
+{
+    std::ifstream file(path);
+    return file.good();
+}
+
+std::string resolveExistingPath(std::initializer_list<std::string> candidates)
+{
+    for (const auto &candidate : candidates)
+    {
+        if (fileExists(candidate))
+        {
+            return candidate;
+        }
+    }
+    return candidates.size() > 0 ? *candidates.begin() : std::string{};
+}
+
+struct ModelBounds
+{
+    glm::vec3 min;
+    glm::vec3 max;
+    glm::vec3 center;
+    float height;
+};
+
+ModelBounds computeModelBounds(const Model &model)
+{
+    glm::vec3 minBound(std::numeric_limits<float>::max());
+    glm::vec3 maxBound(std::numeric_limits<float>::lowest());
+
+    for (const auto &mesh : model.meshes)
+    {
+        for (const auto &vertex : mesh.vertices)
+        {
+            minBound.x = std::min(minBound.x, vertex.Position.x);
+            minBound.y = std::min(minBound.y, vertex.Position.y);
+            minBound.z = std::min(minBound.z, vertex.Position.z);
+            maxBound.x = std::max(maxBound.x, vertex.Position.x);
+            maxBound.y = std::max(maxBound.y, vertex.Position.y);
+            maxBound.z = std::max(maxBound.z, vertex.Position.z);
+        }
+    }
+
+    ModelBounds bounds{};
+    bounds.min = minBound;
+    bounds.max = maxBound;
+    bounds.center = glm::vec3(
+        (minBound.x + maxBound.x) * 0.5f,
+        (minBound.y + maxBound.y) * 0.5f,
+        (minBound.z + maxBound.z) * 0.5f);
+    bounds.height = maxBound.y - minBound.y;
+    return bounds;
+}
 
 int main()
 {
@@ -102,8 +163,41 @@ int main()
 
     glEnable(GL_DEPTH_TEST);
 
-    Shader shader("7.coin_runner.vs", "7.coin_runner.fs");
+    const std::string vertexPath = resolveExistingPath({
+        "7.coin_runner.vs",
+        "src/7.coin_runner/7.coin_runner.vs",
+        "../src/7.coin_runner/7.coin_runner.vs"});
+    const std::string fragmentPath = resolveExistingPath({
+        "7.coin_runner.fs",
+        "src/7.coin_runner/7.coin_runner.fs",
+        "../src/7.coin_runner/7.coin_runner.fs"});
+    Shader colorShader(vertexPath.c_str(), fragmentPath.c_str());
+
+    const std::string modelVertexPath = resolveExistingPath({
+        "7.coin_runner_model.vs",
+        "src/7.coin_runner/7.coin_runner_model.vs",
+        "../src/7.coin_runner/7.coin_runner_model.vs"});
+    const std::string modelFragmentPath = resolveExistingPath({
+        "7.coin_runner_model.fs",
+        "src/7.coin_runner/7.coin_runner_model.fs",
+        "../src/7.coin_runner/7.coin_runner_model.fs"});
+    Shader modelShader(modelVertexPath.c_str(), modelFragmentPath.c_str());
     initCube();
+
+    const std::string kirbyModelPath = resolveExistingPath({
+        "resources/kirby-ball/source/Kirby Ball.obj",
+        "../resources/kirby-ball/source/Kirby Ball.obj"});
+    Model kirbyModel(kirbyModelPath);
+    std::cout << "Kirby model loaded from: " << kirbyModelPath << "\n"
+              << "Meshes: " << kirbyModel.meshes.size()
+              << " | Textures: " << kirbyModel.textures_loaded.size() << std::endl;
+    const ModelBounds kirbyBounds = computeModelBounds(kirbyModel);
+    const float kirbyTargetHeight = 0.9f;
+    const float kirbyScale = kirbyBounds.height > 0.0f ? (kirbyTargetHeight / kirbyBounds.height) : 1.0f;
+    const float kirbyRadius = kirbyTargetHeight * 0.5f;
+    const float kirbyGroundOffset = kirbyBounds.center.y - kirbyBounds.min.y;
+    const bool kirbyHasTextures = !kirbyModel.textures_loaded.empty();
+    const unsigned int kirbyFallbackTexture = kirbyHasTextures ? 0 : createSolidTexture(glm::vec3(1.0f));
 
     // Deterministic random for repeatable class demo runs.
     std::mt19937 rng(77);
@@ -144,7 +238,7 @@ int main()
         return count;
     };
 
-    auto spawnObstacleAt = [&](int lane, float z)
+    auto spawnObstacleAt = [&](int lane, float z, int heightOverride)
     {
         for (Item &o : obstacles)
         {
@@ -153,7 +247,7 @@ int main()
                 o.lane = lane;
                 o.z = z;
                 o.active = true;
-                o.heightUnits = obstacleHeightDist(rng);
+                o.heightUnits = heightOverride > 0 ? heightOverride : obstacleHeightDist(rng);
                 return true;
             }
         }
@@ -162,7 +256,6 @@ int main()
 
     auto trySpawnPattern = [&](float baseZ)
     {
-        const float rowStep = ROAD_SEGMENT_SPACING;
         const bool mirror = mirrorDist(rng) == 1;
         const int pattern = patternDist(rng);
 
@@ -179,27 +272,21 @@ int main()
         }
         else if (pattern == 2)
         {
-            // L shape over two rows
+            // Two-block pair on the left or right
             if (!mirror)
             {
-                cells = {{0, 0.0f}, {0, rowStep}, {1, rowStep}};
+                cells = {{0, 0.0f}, {1, 0.0f}};
             }
             else
             {
-                cells = {{2, 0.0f}, {2, rowStep}, {1, rowStep}};
+                cells = {{1, 0.0f}, {2, 0.0f}};
             }
         }
         else
         {
-            // 2x2 square over two rows
-            if (!mirror)
-            {
-                cells = {{0, 0.0f}, {1, 0.0f}, {0, rowStep}, {1, rowStep}};
-            }
-            else
-            {
-                cells = {{1, 0.0f}, {2, 0.0f}, {1, rowStep}, {2, rowStep}};
-            }
+            // Single pillar in a random lane (keep variety without depth)
+            int lane = laneDist(rng);
+            cells = {{lane, 0.0f}};
         }
 
         if (countInactiveObstacles() < static_cast<int>(cells.size()))
@@ -207,9 +294,10 @@ int main()
             return false;
         }
 
+        const int heightOverride = (pattern == 0) ? 1 : 0;
         for (const auto &cell : cells)
         {
-            if (!spawnObstacleAt(cell.first, baseZ + cell.second))
+            if (!spawnObstacleAt(cell.first, baseZ + cell.second, heightOverride))
             {
                 return false;
             }
@@ -255,6 +343,11 @@ int main()
         {
             elapsed += deltaTime;
             forwardSpeed += FORWARD_ACCEL * deltaTime;
+            travelDistance += forwardSpeed * deltaTime;
+            if (kirbyRadius > 0.0f)
+            {
+                rollAngle += (forwardSpeed * deltaTime) / kirbyRadius;
+            }
 
             // Smooth lane switching
             float desiredX = LANE_X[targetLane];
@@ -381,7 +474,7 @@ int main()
         glClearColor(0.02f, 0.03f, 0.08f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shader.use();
+    colorShader.use();
 
         glm::mat4 projection = glm::perspective(glm::radians(46.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 700.0f);
         // Diagonal chase camera: near road enters bottom-left and converges to horizon.
@@ -389,29 +482,36 @@ int main()
         glm::vec3 camTarget = localToWorld(playerX + 0.1f, 62.0f, 0.8f);
         glm::mat4 view = glm::lookAt(camPos, camTarget, glm::vec3(0.0f, 1.0f, 0.0f));
 
-        shader.setMat4("projection", projection);
-        shader.setMat4("view", view);
+    colorShader.setMat4("projection", projection);
+    colorShader.setMat4("view", view);
 
         auto drawOutlinedCube = [&](const glm::mat4 &model, const glm::vec3 &fillColor)
         {
             // Fill pass
-            shader.setMat4("model", model);
-            shader.setVec3("objectColor", fillColor);
+            colorShader.setMat4("model", model);
+            colorShader.setVec3("objectColor", fillColor);
             renderCube();
 
             // Outline pass
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
             glLineWidth(2.0f);
-            shader.setVec3("objectColor", glm::vec3(0.02f, 0.08f, 0.12f));
+            colorShader.setVec3("objectColor", glm::vec3(0.02f, 0.08f, 0.12f));
             renderCube();
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         };
 
         // Draw runway as chunky 3D blocks (one block per lane segment).
         const float roadCubeSize = ROAD_BLOCK_SIZE;
+        const float trackLength = TRACK_TILE_COUNT * ROAD_SEGMENT_SPACING;
         for (int i = 0; i < TRACK_TILE_COUNT; ++i)
         {
-            float z = -((TRACK_TILE_COUNT * ROAD_SEGMENT_SPACING) * 0.5f) + (i * ROAD_SEGMENT_SPACING);
+            float z = (i * ROAD_SEGMENT_SPACING) - travelDistance;
+            z = std::fmod(z, trackLength);
+            if (z < 0.0f)
+            {
+                z += trackLength;
+            }
+            z -= trackLength * 0.5f;
             for (int lane = 0; lane < 3; ++lane)
             {
                 // Keep cube top aligned near y=0 so player/obstacle heights still make sense.
@@ -433,13 +533,32 @@ int main()
             }
         }
 
-        // Draw player
+    // Draw player
         glm::vec3 playerPos = localToWorld(playerX, PLAYER_Z, playerY);
         glm::mat4 playerModel = glm::mat4(1.0f);
         playerModel = glm::translate(playerModel, playerPos);
-        playerModel = glm::rotate(playerModel, glm::radians(ROAD_YAW_DEG), glm::vec3(0.0f, 1.0f, 0.0f));
-        playerModel = glm::scale(playerModel, glm::vec3(0.7f, 1.0f, 0.7f));
-        drawOutlinedCube(playerModel, glm::vec3(0.0f, 0.88f, 1.0f));
+    playerModel = glm::rotate(playerModel, glm::radians(ROAD_YAW_DEG), glm::vec3(0.0f, 1.0f, 0.0f));
+    playerModel = glm::translate(playerModel, glm::vec3(0.0f, kirbyGroundOffset * kirbyScale, 0.0f));
+    playerModel = glm::rotate(playerModel, rollAngle, glm::vec3(1.0f, 0.0f, 0.0f));
+    playerModel = glm::scale(playerModel, glm::vec3(kirbyScale));
+    playerModel = glm::translate(playerModel, -kirbyBounds.center);
+        modelShader.use();
+        modelShader.setMat4("projection", projection);
+        modelShader.setMat4("view", view);
+        modelShader.setMat4("model", playerModel);
+        modelShader.setVec3("baseColor", glm::vec3(1.0f, 0.72f, 0.84f));
+        modelShader.setVec3("lightDir", glm::vec3(-0.35f, -1.0f, -0.2f));
+        modelShader.setBool("useTexture", kirbyHasTextures);
+        modelShader.setInt("texture_diffuse1", 0);
+        if (!kirbyHasTextures)
+        {
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, kirbyFallbackTexture);
+        }
+        kirbyModel.Draw(modelShader);
+        colorShader.use();
+        colorShader.setMat4("projection", projection);
+        colorShader.setMat4("view", view);
 
         // Draw coins
         for (const Item &c : coins)
@@ -648,3 +767,22 @@ void renderCube()
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
 }
+
+unsigned int createSolidTexture(const glm::vec3 &color)
+{
+    unsigned int textureId = 0;
+    unsigned char pixel[3] = {
+        static_cast<unsigned char>(glm::clamp(color.r, 0.0f, 1.0f) * 255.0f),
+        static_cast<unsigned char>(glm::clamp(color.g, 0.0f, 1.0f) * 255.0f),
+        static_cast<unsigned char>(glm::clamp(color.b, 0.0f, 1.0f) * 255.0f)};
+
+    glGenTextures(1, &textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, pixel);
+    return textureId;
+}
+

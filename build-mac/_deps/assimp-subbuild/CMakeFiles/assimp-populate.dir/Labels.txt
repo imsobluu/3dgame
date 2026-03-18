@@ -1,0 +1,14 @@
+# Target labels
+ assimp-populate
+# Source files and their labels
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/CMakeFiles/assimp-populate
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/CMakeFiles/assimp-populate.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/CMakeFiles/assimp-populate-complete.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/assimp-populate-build.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/assimp-populate-configure.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/assimp-populate-download.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/assimp-populate-install.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/assimp-populate-mkdir.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/assimp-populate-patch.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/assimp-populate-test.rule
+/Users/a/Downloads/3dgame/build-mac/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/assimp-populate-update.rule

@@ -33,7 +33,19 @@ FetchContent_Declare(
     GIT_TAG master
 )
 
+FetchContent_Declare(
+    assimp
+    GIT_REPOSITORY https://github.com/assimp/assimp.git
+    GIT_TAG v5.3.1
+)
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ZLIB OFF CACHE BOOL "" FORCE)
+set(ASSIMP_NO_EXPORT ON CACHE BOOL "" FORCE)
+
 FetchContent_MakeAvailable(glfw)
+FetchContent_MakeAvailable(assimp)
 
 FetchContent_GetProperties(learnopengl_glad)
 if(NOT learnopengl_glad_POPULATED)
@@ -49,12 +61,14 @@ target_include_directories(glad PUBLIC
 
 add_executable(coin_runner
     src/7.coin_runner/coin_runner.cpp
+    src/7.coin_runner/stb_image_impl.cpp
 )
 
 target_link_libraries(coin_runner
     OpenGL::GL
     glad
     glfw
+    assimp
 )
 
 if(WIN32)
